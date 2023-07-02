@@ -6,6 +6,7 @@
     "comma-dangle": "off",
     "semi": "off",
     "jsx-quotes": "off",
-    "space-before-function-paren": "off"
+    "space-before-function-paren": "off",
+    "multiline-ternary": "off"
   }
 }

@@ -1,13 +1,18 @@
-// "use client";
+"use client";
 
 import { useAddress, useDisconnect, useMetamask } from "@thirdweb-dev/react";
+import { Collection } from "@/typings";
+import Link from "next/link";
 
-export default function NFTRight() {
+type Props = {
+  collection?: Collection;
+};
+
+export default function NFTRight({ collection }: Props) {
   // Auth
   const connectWithMetamask = useMetamask();
   const address = useAddress();
   const disconnect = useDisconnect();
-  // ---
 
   return (
     <div className="flex flex-1 flex-col p-12 lg:col-span-6">
@@ -32,6 +37,7 @@ export default function NFTRight() {
 
       <hr className="my-2 border" />
 
+      {/* Subheader */}
       {address && (
         <p className="text-center text-sm text-rose-400">
           You're logged in with wallet {address.substring(0, 5)}...
@@ -41,15 +47,26 @@ export default function NFTRight() {
 
       {/* Content */}
       <div className="mt-10 flex flex-1 flex-col items-center space-y-6 text-center lg:justify-center lg:space-y-0">
-        <img
-          className="w-80 object-cover pb-10 lg:h-40"
-          src="https://links.papareact.com/bdy"
-          alt="Preview all NFTs"
-        />
-        <h1 className="text-3xl font-bold lg:text-5xl lg:font-extrabold">
-          The PAPAFAM Ape Coding Club | NFT Drop
-        </h1>
-        <p className="pt-2 text-xl text-green-500">13/21 NFTs claimed</p>
+        {collection ? (
+          <>
+            <img
+              className="w-80 object-cover pb-10 lg:h-40"
+              src="https://links.papareact.com/bdy"
+              alt="Preview all NFTs"
+            />
+            <h1 className="text-3xl font-bold lg:text-5xl lg:font-extrabold">
+              {collection.title} | NFT drop
+            </h1>
+            <p className="pt-2 text-xl text-green-500">13/21 NFTs claimed</p>
+          </>
+        ) : (
+          <div>
+            Collection not found! Try another one.{" "}
+            <Link href="/" className="text-pink-600">
+              Back home
+            </Link>
+          </div>
+        )}
       </div>
 
       {/* Mint button */}
