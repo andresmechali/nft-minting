@@ -36,12 +36,18 @@ export default async function NFTDropPage({ params: { id } }: NFTProps) {
         }
     }
 `;
+
   const collection = await client.fetch(query, { id });
 
   return (
     <div className="flex h-screen flex-col lg:grid lg:grid-cols-10">
-      <NFTLeft collection={collection} />
-      <NFTRight collection={collection} />
+      <div className="bg-gradient-to-br from-cyan-800 to-rose-500 lg:col-span-4">
+        <NFTLeft collection={collection} />
+      </div>
+      <div className="flex flex-1 flex-col p-12 lg:col-span-6">
+        {/*Loading...*/}
+        <NFTRight collection={collection} />
+      </div>
     </div>
   );
 }

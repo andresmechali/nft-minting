@@ -1,8 +1,15 @@
 "use client";
 
-import { useAddress, useDisconnect, useMetamask } from "@thirdweb-dev/react";
+import {
+  useAddress,
+  useDisconnect,
+  useMetamask,
+  useNFTDrop,
+} from "@thirdweb-dev/react";
 import { Collection } from "@/typings";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import Claimed from "@/app/nft/[id]/Claimed";
 
 type Props = {
   collection?: Collection;
@@ -15,16 +22,18 @@ export default function NFTRight({ collection }: Props) {
   const disconnect = useDisconnect();
 
   return (
-    <div className="flex flex-1 flex-col p-12 lg:col-span-6">
+    <>
       {/*  Header */}
       <header className="flex items-center justify-between">
-        <h1 className="w-52 cursor-pointer text-xl font-extralight sm:w-80">
-          The{" "}
-          <span className="mx-1 font-extrabold underline decoration-pink-600">
-            PAPAFAM
-          </span>{" "}
-          NFT Market Place
-        </h1>
+        <Link href="/">
+          <h1 className="w-52 cursor-pointer text-xl font-extralight sm:w-80">
+            The{" "}
+            <span className="mx-1 font-extrabold underline decoration-pink-600">
+              PAPAFAM
+            </span>{" "}
+            NFT Market Place
+          </h1>
+        </Link>
         <button
           className="rounded-full bg-rose-400 px-4 py-2 text-xs font-bold text-white lg:px-5 lg:py-3"
           onClick={() => {
@@ -57,7 +66,8 @@ export default function NFTRight({ collection }: Props) {
             <h1 className="text-3xl font-bold lg:text-5xl lg:font-extrabold">
               {collection.title} | NFT drop
             </h1>
-            <p className="pt-2 text-xl text-green-500">13/21 NFTs claimed</p>
+
+            <Claimed address={collection.address} />
           </>
         ) : (
           <div>
@@ -73,6 +83,6 @@ export default function NFTRight({ collection }: Props) {
       <button className="mt-10 h-16 w-full rounded-full bg-red-600 font-bold text-white">
         Mint NFT (0.01 ETH)
       </button>
-    </div>
+    </>
   );
 }
